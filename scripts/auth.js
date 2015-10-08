@@ -23,8 +23,15 @@ export default React.createClass({
   render: function(){
     console.log('parent render');
     return(
-      <div>
-        <Login data={this.state} />
+      <div className="row">
+        <div id="main-sidebar-nav" className="col-sm-3 col-md-2 sidebar">
+          <Login data={this.state} />
+        </div>
+        <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div className="row">
+            <CommentBox data={this.state} />
+          </div>
+        </div>
       </div>
     );
   }

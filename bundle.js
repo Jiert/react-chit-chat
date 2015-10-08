@@ -20483,8 +20483,21 @@
 	    console.log('parent render');
 	    return _react2['default'].createElement(
 	      'div',
-	      null,
-	      _react2['default'].createElement(_login2['default'], { data: this.state })
+	      { className: 'row' },
+	      _react2['default'].createElement(
+	        'div',
+	        { id: 'main-sidebar-nav', className: 'col-sm-3 col-md-2 sidebar' },
+	        _react2['default'].createElement(_login2['default'], { data: this.state })
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { className: 'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main' },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2['default'].createElement(_commentBox2['default'], { data: this.state })
+	        )
+	      )
 	    );
 	  }
 
@@ -20793,19 +20806,17 @@
 	exports['default'] = _react2['default'].createClass({
 	  displayName: 'commentBox',
 
-	  // getInitialState: function(){
-	  // getInitialState: function(){
-	  // this.firebase = this.props.data.firebase;
-	  // return { data: []};
-	  // },
+	  getInitialState: function getInitialState() {
+	    return { data: [] };
+	  },
 
 	  componentDidMount: function componentDidMount() {
-	    // console.log('Comment Box componentDidMount');
+	    console.log('Comment Box componentDidMount');
 
-	    // // TODO: make the room ID dynamic
-	    // this.firebase.child('messages/room-Jiu26RzmAPtzPFTzgZi').on('value', function(data){
-	    //   this.setState({ data: data.val() });
-	    // }.bind(this));
+	    // TODO: make the room ID dynamic
+	    this.props.data.fire.child('messages/room-Jiu26RzmAPtzPFTzgZi').on('value', (function (data) {
+	      this.setState({ data: data.val() });
+	    }).bind(this));
 	  },
 
 	  render: function render() {
@@ -20833,8 +20844,8 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'panel-body' },
-	          _react2['default'].createElement(_commentList2['default'], null),
-	          _react2['default'].createElement(_commentForm2['default'], null)
+	          _react2['default'].createElement(_commentList2['default'], { data: this.state.data }),
+	          _react2['default'].createElement(_commentForm2['default'], { data: this.props.data })
 	        ),
 	        _react2['default'].createElement('div', { className: 'message-input panel-footer' })
 	      )
@@ -22530,14 +22541,22 @@
 	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
-	      'form',
-	      { className: 'commentForm', onSubmit: this.handleSubmit },
-	      _react2['default'].createElement('hr', null),
-	      _react2['default'].createElement('input', { type: 'text', className: 'form-control', placeholder: 'Your Name', ref: 'author' }),
-	      _react2['default'].createElement('input', { type: 'text', className: 'form-control', placeholder: 'Say something...', ref: 'text' }),
-	      _react2['default'].createElement('input', { type: 'submit', className: 'btn btn-primary', value: 'Post' })
-	    );
+	    if (this.props.data.auth) {
+	      return _react2['default'].createElement(
+	        'form',
+	        { className: 'commentForm', onSubmit: this.handleSubmit },
+	        _react2['default'].createElement('hr', null),
+	        _react2['default'].createElement('input', { type: 'text', className: 'form-control', placeholder: 'Your Name', ref: 'author' }),
+	        _react2['default'].createElement('input', { type: 'text', className: 'form-control', placeholder: 'Say something...', ref: 'text' }),
+	        _react2['default'].createElement('input', { type: 'submit', className: 'btn btn-primary', value: 'Post' })
+	      );
+	    } else {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        'Login'
+	      );
+	    }
 	  }
 	});
 	module.exports = exports['default'];

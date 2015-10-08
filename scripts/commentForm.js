@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default React.createClass({
+ 
   handleSubmit: function(event){
     event.preventDefault();
 
@@ -20,13 +21,20 @@ export default React.createClass({
   },
 
   render: function() {
-    return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <hr></hr>
-        <input type="text" className="form-control" placeholder="Your Name" ref="author"/>
-        <input type="text" className="form-control" placeholder="Say something..." ref="text"/>
-        <input type="submit" className="btn btn-primary" value="Post" />
-      </form>
-    );
+    if (this.props.data.auth){
+      return (
+        <form className="commentForm" onSubmit={this.handleSubmit}>
+          <hr></hr>
+          <input type="text" className="form-control" placeholder="Your Name" ref="author"/>
+          <input type="text" className="form-control" placeholder="Say something..." ref="text"/>
+          <input type="submit" className="btn btn-primary" value="Post" />
+        </form>
+      );
+    }
+    else {
+      return (
+        <div>Login</div>
+      )
+    }
   }
 });

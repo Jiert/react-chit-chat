@@ -3,19 +3,16 @@ import React from 'react';
 export default React.createClass({
 
   getInitialState: function(){
-    this.firebase = this.props.data.firebase;
-    return { email: '', password: '' };
+    return { email: null , password: null };
   },
 
-  authenticate: function(){
-    this.firebase.authWithPassword(this.state, this.authCallback);
+  authenticate: function(){  
+    this.props.data.fire.authWithPassword(this.state, this.authCallback);
   },
 
   authCallback: function(error, authData){
     if (error) {
       console.log("Login Failed!", error);
-    } else {
-      console.log("Authenticated successfully with payload:", authData);
     }
   },
 
@@ -41,24 +38,14 @@ export default React.createClass({
   },
 
   render: function() {
-    // TODO: Need to abstract this out into other components
-
-    // var loginButton;
-    // if (loggedIn) {
-    //   loginButton = <LogoutButton />;
-    // } else {
-    //   loginButton = <LoginButton />;
-    // }
-
+    console.log('login Form Render');
     return (
-    <form className="commentForm" onSubmit={this.handleSubmit}>
-      <input name="email"     onChange={this.onChange} type="email" className="form-control" value={this.state.user} placeholder="email address" ref="email"/>
-      <input name="password" onChange={this.onChange} type="password" className="form-control" value={this.state.password} placeholder="password" ref="password"/>
-      <input type="submit" className="btn btn-primary" value="Post" />
-    </form>
-  );
-
-
+      <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input name="email"    onChange={this.onChange} type="email"    value={this.state.email}    className="form-control" placeholder="email address" ref="email"/>
+        <input name="password" onChange={this.onChange} type="password" value={this.state.password} className="form-control" placeholder="password"      ref="password"/>
+        <input type="submit" className="btn btn-primary" value="Post" />
+      </form>
+    );
   }
 
 });

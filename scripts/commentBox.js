@@ -20,7 +20,7 @@ export default React.createClass({
   render: function() {
     console.log('commentBox render');
     return (
-      <div className="commentBox col-md-4 panel">
+      <div className="commentBox col-md-4">
         <div className="panel panel-default">
           <div className="panel-heading">
             <button type="button" className="close">×</button>

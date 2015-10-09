@@ -20823,7 +20823,7 @@
 	    console.log('commentBox render');
 	    return _react2['default'].createElement(
 	      'div',
-	      { className: 'commentBox col-md-4 panel' },
+	      { className: 'commentBox col-md-4' },
 	      _react2['default'].createElement(
 	        'div',
 	        { className: 'panel panel-default' },

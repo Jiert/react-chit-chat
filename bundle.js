@@ -20462,6 +20462,10 @@
 
 	var _login2 = _interopRequireDefault(_login);
 
+	var _rooms = __webpack_require__(167);
+
+	var _rooms2 = _interopRequireDefault(_rooms);
+
 	exports['default'] = _react2['default'].createClass({
 	  displayName: 'auth',
 
@@ -20487,7 +20491,8 @@
 	      _react2['default'].createElement(
 	        'div',
 	        { id: 'main-sidebar-nav', className: 'col-sm-3 col-md-2 sidebar' },
-	        _react2['default'].createElement(_login2['default'], { data: this.state })
+	        _react2['default'].createElement(_login2['default'], { data: this.state }),
+	        _react2['default'].createElement(_rooms2['default'], { data: this.state })
 	      ),
 	      _react2['default'].createElement(
 	        'div',
@@ -20810,6 +20815,10 @@
 	    return { data: [] };
 	  },
 
+	  onCloseClick: function onCloseClick() {
+	    _react2['default'].unmountComponentAtNode(this.getDOMNode().parentNode);
+	  },
+
 	  componentDidMount: function componentDidMount() {
 	    console.log('Comment Box componentDidMount');
 
@@ -20832,7 +20841,7 @@
 	          { className: 'panel-heading' },
 	          _react2['default'].createElement(
 	            'button',
-	            { type: 'button', className: 'close' },
+	            { onClick: this.onCloseClick, className: 'close' },
 	            '×'
 	          ),
 	          _react2['default'].createElement(
@@ -22703,6 +22712,59 @@
 	      'Log out'
 	    );
 	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 167 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _underscore = __webpack_require__(162);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'rooms',
+
+	  getInitialState: function getInitialState() {
+	    return { data: [] };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    // TODO: A better way to load rooms. Do we want all? No.
+	    this.props.data.fire.child('rooms').on('value', (function (data) {
+	      this.setState({ data: data.val() });
+	    }).bind(this));
+	  },
+
+	  render: function render() {
+	    var roomNodes = this.state.data && _underscore2['default'].toArray(this.state.data).map(function (room) {
+	      return _react2['default'].createElement(
+	        'button',
+	        { className: 'btn btn-primary btn-block' },
+	        room.name
+	      );
+	    });
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: 'room-list' },
+	      roomNodes
+	    );
+	  }
+
 	});
 	module.exports = exports['default'];
 

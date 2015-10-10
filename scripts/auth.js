@@ -2,7 +2,7 @@ import React from 'react';
 import Firebase from 'firebase';
 import CommentBox from './commentBox';
 import Login from './login';
-
+import Rooms from './rooms';
 
 export default React.createClass({
   
@@ -26,6 +26,7 @@ export default React.createClass({
       <div className="row">
         <div id="main-sidebar-nav" className="col-sm-3 col-md-2 sidebar">
           <Login data={this.state} />
+          <Rooms data={this.state} />
         </div>
         <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div className="row">

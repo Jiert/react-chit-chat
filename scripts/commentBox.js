@@ -8,6 +8,10 @@ export default React.createClass({
     return { data: []};
   },
 
+  onCloseClick: function(){
+    React.unmountComponentAtNode(this.getDOMNode().parentNode);
+  },
+
   componentDidMount: function(){
     console.log('Comment Box componentDidMount');
 
@@ -23,7 +27,7 @@ export default React.createClass({
       <div className="commentBox col-md-4">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <button type="button" className="close">×</button>
+            <button onClick={this.onCloseClick} className="close">×</button>
             <h3 className="panel-title">random</h3>
           </div>
           <div className="panel-body">
